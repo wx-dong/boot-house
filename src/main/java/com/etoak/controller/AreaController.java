@@ -27,7 +27,7 @@ public class AreaController {
     @GetMapping("/queryByPid")
     @ApiOperation(value = "根据id查询地区列表",notes = "根据id查询地区列表")
     @ApiImplicitParam(value = "父id",name = "pid",required = false,defaultValue = "0"
-    ,dataType = "int",paramType = "query")
+    ,paramType = "query")
     public List<Area> queryByPid(
             @RequestParam(required = false,defaultValue = "0") int pid
     ){
