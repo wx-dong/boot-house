@@ -15,6 +15,10 @@ spring:
   thymeleaf:
     cache: false
     encoding: UTF-8
+  servlet:
+      multipart:
+        # 默认1MB
+        max-file-size: 2MB
 
 mybatis:
   mapper-locations: classpath:mappers/*.xml
@@ -28,4 +32,8 @@ logging:
   level:
     com.etoak.mapper: DEBUG
 
+upload:
+  dir: d:/upload/
+  savePathPrefix: /pics/
+  mapping: /pics/**
 
