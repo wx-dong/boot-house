@@ -18,8 +18,8 @@
                     t.city,
                     t.area,
                     t.area_name AS areaName,
-                    t.rent_mode AS rentModel,
-                    t2.name AS rentModelName,
+                    t.rent_mode AS rentMode,
+                    t2.name AS rentModeName,
                     t.house_type AS houseType,
                     t3.name AS houseTypeName,
                     t.orientation,
@@ -35,7 +35,40 @@
     t3.group_id='house_type'
     left join t_springmvc_dict t4 on t.orientation=t4.`value` and
     t4.group_id='orientation'
+    <where>
+        <if test="province != null and province != 0">
+            AND province = #{province}
+        </if>
+        <if test="city != null and city != 0">
+            AND city = #{city}
+        </if>
+        <if test="area != null and area != 0">
+            AND area = #{area}
+        </if>
+        <if test="rentMode != null and rentMode != '' ">
+            AND rent_mode = #{rentMode}
+        </if>
+        <if test="houseTypeList != null and houseTypeList.length != 0">
+            and t.house_type IN
+            <foreach collection="houseTypeList" item="houseType" open="(" close=")" separator=",">
+                #{houseType}
+            </foreach>
+        </if>
+        <if test="orientationList != null and orientationList.size() != 0">
+            and t.orientation IN
+            <foreach collection="orientationList" item="orientation" open="(" close=")" separator=",">
+                #{orientation}
+            </foreach>
+        </if>
+        <if test="rentalMapList != null and rentalMapList.size() != 0">
+            AND
+            <foreach collection="rentalMapList" item="rentalMap" open="(" close=")" separator="OR">
+                t.rental BETWEEN #{rentalMap.start} and #{rentalMap.end}
+            </foreach>
+        </if>
 
+    </where>
+        ORDER by t.publish_time
 
     </select>
 

@@ -95,11 +95,15 @@ public class HouseController {
     public Page<HouseVo> queryList(
             @RequestParam(required = false,defaultValue = "1") int pageNum,
             @RequestParam(required = false,defaultValue = "10") int pageSize,
-            HouseVo houseVo){
-        return houseService.queryList(pageNum,pageSize,houseVo);
+            HouseVo houseVo,
+            @RequestParam(value = "rentalList[]",required = false) String[] rentalList){
+        return houseService.queryList(pageNum,pageSize,houseVo,rentalList);
     }
 
-
+    @GetMapping("/toList")
+    public String toList(){
+        return "house/list";
+    }
 
 
 
